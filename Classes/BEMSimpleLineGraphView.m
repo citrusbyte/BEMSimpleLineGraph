@@ -279,10 +279,10 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
         
         if (self.enablePopUpReport == YES && self.alwaysDisplayPopUpLabels == NO) {
             NSDictionary *labelAttributes = @{NSFontAttributeName: self.labelFont};
-            NSString *maxValueString = [NSString stringWithFormat:@"%li",
-                                        (long)[self calculateMaximumPointValue].integerValue];
-            NSString *minValueString = [NSString stringWithFormat:@"%li",
-                                        (long)[self calculateMinimumPointValue].integerValue];
+            NSString *maxValueString = [NSString stringWithFormat:@"%.1f",
+                                        (float)[self calculateMaximumPointValue].floatValue];
+            NSString *minValueString = [NSString stringWithFormat:@"%.1f",
+                                        (float)[self calculateMinimumPointValue].floatValue];
             NSString *longestString = nil;
             if ([minValueString sizeWithAttributes:labelAttributes].width >
                 [maxValueString sizeWithAttributes:labelAttributes].width)
@@ -1014,9 +1014,10 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     self.popUpLabel.center = self.popUpView.center;
     
     if ([self.delegate respondsToSelector:@selector(popUpSuffixForlineGraph:)])
-        self.popUpLabel.text = [NSString stringWithFormat:@"%li%@", (long)[dataPoints[(NSInteger) closestDot.tag - DotFirstTag100] integerValue], [self.delegate popUpSuffixForlineGraph:self]];
+        self.popUpLabel.text = [NSString stringWithFormat:@"%.1f%@", (float)[dataPoints[(NSInteger) closestDot.tag - DotFirstTag100] floatValue], [self.delegate popUpSuffixForlineGraph:self]];
     else
-        self.popUpLabel.text = [NSString stringWithFormat:@"%li", (long)[dataPoints[(NSInteger) closestDot.tag - DotFirstTag100] integerValue]];
+        self.popUpLabel.text = [NSString stringWithFormat:@"%.1f", (float)[dataPoints[(NSInteger) closestDot.tag - DotFirstTag100] floatValue]];
+    
     if (self.enableYAxisLabel == YES && self.popUpView.frame.origin.x <= self.YAxisLabelXOffset) {
         self.xCenterLabel = self.popUpView.frame.size.width/2;
         self.popUpView.center = CGPointMake(self.xCenterLabel + self.YAxisLabelXOffset + 1, self.yCenterLabel);
