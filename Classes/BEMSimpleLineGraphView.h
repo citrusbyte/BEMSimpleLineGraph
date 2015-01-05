@@ -347,10 +347,7 @@
 //----- CUSTOMIZATION -----//
 
 
-/** The optional suffix to append to the popup report.
- @param graph The graph object requesting the total number of points.
- @return The suffix to append to the popup report. */
-- (NSString *)popUpSuffixForlineGraph:(BEMSimpleLineGraphView *)graph;
+- (NSString *)popUpValueForlineGraph:(BEMSimpleLineGraphView *)graph atIndex:(NSInteger)index;
 
 /** Optional method to always display some of the pop up labels on the graph.
  @see alwaysDisplayPopUpLabels must be set to YES for this method to have any affect.

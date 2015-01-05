@@ -278,26 +278,12 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
         [self.panView addGestureRecognizer:self.panGesture];
         
         if (self.enablePopUpReport == YES && self.alwaysDisplayPopUpLabels == NO) {
-            NSDictionary *labelAttributes = @{NSFontAttributeName: self.labelFont};
-            NSString *maxValueString = [NSString stringWithFormat:@"%.1f",
-                                        (float)[self calculateMaximumPointValue].floatValue];
-            NSString *minValueString = [NSString stringWithFormat:@"%.1f",
-                                        (float)[self calculateMinimumPointValue].floatValue];
-            NSString *longestString = nil;
-            if ([minValueString sizeWithAttributes:labelAttributes].width >
-                [maxValueString sizeWithAttributes:labelAttributes].width)
-                longestString = minValueString;
-            else longestString = maxValueString;
-
-            self.popUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
-            if ([self.delegate respondsToSelector:@selector(popUpSuffixForlineGraph:)])
-                self.popUpLabel.text = [NSString stringWithFormat:@"%@%@", longestString, [self.delegate popUpSuffixForlineGraph:self]];
-            else self.popUpLabel.text = longestString;
+            self.popUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)];
             self.popUpLabel.textAlignment = 1;
             self.popUpLabel.numberOfLines = 1;
             self.popUpLabel.font = self.labelFont;
             self.popUpLabel.backgroundColor = [UIColor clearColor];
-            [self.popUpLabel sizeToFit];
+            self.popUpLabel.textColor = [UIColor grayColor];
             self.popUpLabel.alpha = 0;
             
             self.popUpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.popUpLabel.frame.size.width + 7, self.popUpLabel.frame.size.height + 2)];
@@ -1009,12 +995,12 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     } completion:nil];
     
     self.xCenterLabel = closestDot.center.x;
-    self.yCenterLabel = closestDot.center.y - closestDot.frame.size.height/2 - 15;
+    self.yCenterLabel = closestDot.center.y - closestDot.frame.size.height/2 - 30;
     self.popUpView.center = CGPointMake(self.xCenterLabel, self.yCenterLabel);
     self.popUpLabel.center = self.popUpView.center;
     
-    if ([self.delegate respondsToSelector:@selector(popUpSuffixForlineGraph:)])
-        self.popUpLabel.text = [NSString stringWithFormat:@"%.1f%@", (float)[dataPoints[(NSInteger) closestDot.tag - DotFirstTag100] floatValue], [self.delegate popUpSuffixForlineGraph:self]];
+    if ([self.delegate respondsToSelector:@selector(popUpValueForlineGraph:atIndex:)])
+        self.popUpLabel.text = [self.delegate popUpValueForlineGraph:self atIndex:(NSInteger) closestDot.tag - DotFirstTag100];
     else
         self.popUpLabel.text = [NSString stringWithFormat:@"%.1f", (float)[dataPoints[(NSInteger) closestDot.tag - DotFirstTag100] floatValue]];
     
