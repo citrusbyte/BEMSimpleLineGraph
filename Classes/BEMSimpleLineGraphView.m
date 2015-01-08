@@ -596,7 +596,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
                 [labelXAxis setCenter:CGPointMake(((self.viewForBaselineLayout.frame.size.width - self.YAxisLabelXOffset) / (numberOfPoints-1)) * (i*numberOfGaps - 1 - offset) + self.YAxisLabelXOffset, self.frame.size.height - lRect.size.height/2)];
                 
                 CGFloat limitedX = MIN(self.bounds.size.width - rect.size.width/2 - 3, labelXAxis.center.x);
-                limitedX = MAX(rect.size.width/2 + 13, limitedX);
+                limitedX = MAX(rect.size.width/2 + 20, limitedX);
                 labelXAxis.center = CGPointMake(limitedX, labelXAxis.center.y);
                 
                 NSNumber *xAxisLabelCoordinate = [NSNumber numberWithFloat:labelXAxis.center.x-self.YAxisLabelXOffset];
