@@ -522,7 +522,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
         
         CGFloat viewWidth = self.frame.size.width - self.YAxisLabelXOffset;
         
-        UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(3+self.YAxisLabelXOffset, self.frame.size.height-20, viewWidth/2, 20)];
+        UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset + 7, self.frame.size.height-20, viewWidth/2, 20)];
         firstLabel.text = firstXLabel;
         firstLabel.font = self.labelFont;
         firstLabel.textAlignment = NSTextAlignmentLeft;
@@ -536,7 +536,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
         NSNumber *xFirstAxisLabelCoordinate = @(firstLabel.center.x - self.YAxisLabelXOffset);
         [xAxisLabelPoints addObject:xFirstAxisLabelCoordinate];
         
-        UILabel *lastLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - 3, self.frame.size.height-20, self.frame.size.width/2, 20)];
+        UILabel *lastLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - self.YAxisLabelXOffset - 7, self.frame.size.height-20, self.frame.size.width/2, 20)];
         lastLabel.text = lastXLabel;
         lastLabel.font = self.labelFont;
         lastLabel.textAlignment = NSTextAlignmentRight;
@@ -595,8 +595,8 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
                 labelXAxis.frame = rect;
                 [labelXAxis setCenter:CGPointMake(((self.viewForBaselineLayout.frame.size.width - self.YAxisLabelXOffset) / (numberOfPoints-1)) * (i*numberOfGaps - 1 - offset) + self.YAxisLabelXOffset, self.frame.size.height - lRect.size.height/2)];
                 
-                CGFloat limitedX = MIN(self.bounds.size.width - rect.size.width/2 - 3, labelXAxis.center.x);
-                limitedX = MAX(rect.size.width/2 + 20, limitedX);
+                CGFloat limitedX = MIN(self.bounds.size.width - rect.size.width/2 - self.YAxisLabelXOffset - 7, labelXAxis.center.x);
+                limitedX = MAX(rect.size.width/2 + self.YAxisLabelXOffset + 7, limitedX);
                 labelXAxis.center = CGPointMake(limitedX, labelXAxis.center.y);
                 
                 NSNumber *xAxisLabelCoordinate = [NSNumber numberWithFloat:labelXAxis.center.x-self.YAxisLabelXOffset];
